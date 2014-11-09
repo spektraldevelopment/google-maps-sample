@@ -1,9 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Google Maps API Example</title>
+    <title>Google Maps API Sample</title>
+    <style type="text/css">
+        html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6X0Zle28fdDqO0VGM50bTQmU0Sacyac4">
+    </script>
+    <script type="text/javascript">
+        var map, placesArr, i, pathArr = [], j;
+
+        placesArr = [
+            { title: 'Hong Kong', lat: 22.275849, lng: 114.172377 },
+            { title: 'Chek Lap Kok Airport', lat: 22.3089, lng: 113.9144 }
+        ];
+
+        function initialize() {
+            var mapOptions = {
+                center: { lat: 22.275849, lng: 114.172377 },
+                zoom: 12
+            };
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            function createMarker(title, lat, lng) {
+                var myLatlng = new google.maps.LatLng(lat, lng);
+
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: title,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 10
+                    }
+                });
+
+                marker.setMap(map);
+            }
+
+            for (i = 0; i < placesArr.length; i += 1) {
+                createMarker(placesArr[i].title, placesArr[i].lat, placesArr[i].lng);
+            }
+
+            for (j = 0; j < placesArr.length; j += 1) {
+                var newLatLng = new google.maps.LatLng(placesArr[j].lat, placesArr[j].lng);
+                pathArr.push(newLatLng);
+            }
+
+            console.log(pathArr);
+
+            var flightPath = new google.maps.Polyline({
+                path: pathArr,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+
+            flightPath.setMap(map);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 </head>
 <body>
-
+<div id="map-canvas"></div>
 </body>
 </html>
