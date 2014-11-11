@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Plotter</title>
+    <style type="text/css">
+        html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6X0Zle28fdDqO0VGM50bTQmU0Sacyac4"></script>
+</head>
+<body>
+    <div id="map-canvas"></div>
+    <script src="js/WaypointMaker.js"></script>
+    <script type="text/javascript">
+        //Init navigator
+        var nav = new WaypointMaker();
+        nav.init();
+    </script>
+</body>
+</html>
